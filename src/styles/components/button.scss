@@ -1,0 +1,22 @@
+$main-green: #27AE60;
+
+.button {
+    font-family: 'Maven Pro', sans-serif;
+    font-weight: 500;
+
+    border: 0;
+    border-radius: 9999px;
+
+    padding: 0.6rem 2rem;
+
+    background-color: $main-green;
+    box-shadow: 4px 0 4px hsla(0, 0%, 0%, 0.25);
+
+    transition: filter 0.2s;
+
+    &:hover {
+        cursor: pointer;
+
+        filter: brightness(0.95);
+    }
+}
