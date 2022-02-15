@@ -1,0 +1,144 @@
+$main-text-color: #fff;
+$main-green: #27AE60;
+
+body {
+    height: 100vh;
+}
+
+#root {
+    display:  flex;
+    flex-direction: column;
+
+    width: 85%;
+    height: 100%; 
+
+    margin: 0 auto;
+}
+
+#landingpage-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+
+    margin-top: 2.5rem;
+
+    .social-container {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 1rem;
+
+        img {
+            height: 20px;
+        }
+    }
+
+    .title-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+
+        h1 {
+            font-family: 'Maven Pro', sans-serif;
+            font-weight: 500;
+            font-size: 1.5rem;
+
+            color: $main-text-color;
+        }
+
+        img {
+            max-height: 42px;
+        }
+    }
+}
+
+#landingpage-main {
+    display: flex;
+
+    .blobs-container {
+        position: absolute;
+        overflow: hidden;
+        z-index: -1;
+
+        left: 0;
+        bottom: 0;
+
+        height: 100vh;
+        width: 100%;
+        
+        .blobs {
+            position: absolute;
+
+            &.black-blob {
+                transform: translate3d(-35%, 15%, 0);
+            }
+
+            &.green-blob {
+                transform: translate3d(-12%, 115%, 0)
+            }
+        }
+    }
+
+    .info-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        height: calc(100% - 2.5rem);
+
+        .text-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: flex-start;
+            gap: 1.2rem;
+
+            height: 50%;
+
+            flex: 1;
+
+            h2 {
+                margin: 0;
+
+                font-size: 48px;
+                color: #D2D2D2;
+            }
+
+            .button {
+                padding: 0.9rem 3.6rem;
+                margin-top: 3.5rem;
+                margin-bottom: 0.8rem;
+
+                color: $main-text-color;
+                font-size: 24px;
+                font-weight: 600;
+                font-family: 'Overpass', sans-serif;
+            }
+
+            .button-line {
+                width: 30%;
+                margin: 0 auto;
+                border-top: 2px solid $main-green;
+            }
+
+            p {
+                margin: 0;
+
+                font-size: 24px;
+                color: #A9A9A9;
+            }
+        }
+
+        .programmer-container {
+            flex: 1.2;
+            
+            img {
+                height: calc(100% - 2.5rem);
+                width: calc(100% - 2.5rem);
+    
+                max-width: 760px;
+                max-height: 760px;
+            }
+        }
+    }
+}
