@@ -1,0 +1,145 @@
+$background-input-base: #fff;
+$background-edit-button: #DBB801;
+$background-delete-button: #F42626;
+$main-green: #27AE60;
+
+%div-input-space {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    font-weight: 500;
+    font-size: 22px;
+}
+
+.modal-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+    height: 100%;
+
+    margin: 0 25px;
+
+    font-family: 'Maven Pro', sans-serif;
+
+    h1 {
+        text-transform: capitalize;
+        font-weight: 500;
+        font-size: 35px;
+    }
+
+    > div {
+        text-align: center;
+
+        p {
+            width: 90%;
+
+            font-weight: 500;
+            font-size: 25px;
+        }
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 1rem;
+
+        height: 100%;
+
+        .inputs-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+
+            .avatar-label {
+                @extend %div-input-space;
+
+                > div {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+
+                    transition: filter 0.2s;
+
+                    &:hover {
+                        cursor: pointer;
+                
+                        filter: brightness(0.95);
+                    }
+                }
+            }
+    
+            div {
+                @extend %div-input-space;
+
+                input, div, textarea {
+                    color: hsla(0, 0%, 0%, 0.7);
+
+                    font-family: 'Maven Pro', sans-serif;
+                    font-weight: 500;
+                    font-size: 18px;
+
+                    width: 290px;
+                    height: 30px;
+
+                    padding: 0 0.65rem;
+                    border: 0;
+                    border-radius: 10px;
+
+                    box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+                    background-color: $background-input-base;
+
+                    &:focus {
+                        outline: 2px solid $main-green;
+                    }
+
+                    &[type="file"] {
+                        display: none;
+                    }
+                }
+
+                textarea {
+                    resize: vertical;
+                    min-height: 30px;
+
+                    padding: 0 0.65rem;
+                    padding-top: 0.5rem;
+                }
+            }
+        }
+    
+        .buttons-container {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+
+            margin-top: 0.8rem;
+
+            .button {
+                color: black;
+                min-width: 125px;
+
+                text-transform: capitalize;
+                font-size: 20px;
+
+                padding: 0.55rem 1.2rem;
+                margin-bottom: 2.2rem;
+            }
+
+            .cancel {
+                background-color: $background-input-base;
+            }
+
+            .edit {
+                background-color: $background-edit-button;
+            }
+
+            .delete {
+                background-color: $background-delete-button;
+            }
+        }
+    }
+}

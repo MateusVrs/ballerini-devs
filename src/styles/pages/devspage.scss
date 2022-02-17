@@ -1,0 +1,126 @@
+$background-input-base: #fff;
+$main-text-color: #fff;
+$backgroud-base: #1D1D1D;
+
+#header-base {
+    .search-container {
+        position: relative;
+
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+
+        width: 70%;
+
+        margin-left: auto;
+
+        .search-icon {
+            position: absolute;
+            left: 0.6rem;
+        }
+
+        input {
+            color: hsl(0, 0%, 60%);
+            font-weight: 600;
+            font-size: 20px;
+
+            outline: none;
+
+            height: 100%;
+            width: 100%;
+
+            padding: 0 0.6rem 0 2.5rem;
+            border: 0;
+
+            border-radius: 10px;
+
+            background: $background-input-base;
+
+            box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+            &::placeholder {
+                color: hsl(0, 0%, 60%);
+            }
+        }
+    }
+
+    .add-dev-container {
+        display: flex;
+        justify-content: flex-end;
+
+        grid-column-start: 3;
+
+        width: 100%;
+
+        margin-top: 1rem;
+
+        .button {
+            padding: 0.75rem 1.2rem;
+            font-size: 14px;
+
+            color: $main-text-color;
+        }
+    }
+}
+
+.cards-container {
+    display: flex;
+    align-items: center;
+
+    flex-grow: 1;
+
+    width: 100%;
+}
+
+
+
+.cards-container {
+    .swiper {
+        width: 100%;
+    }
+    
+    #slide-prev, #slide-next {
+        height: 70px;
+        width: 70px;
+        
+        &::after {
+            position: absolute;
+
+            color: hsla(0, 0%, 98%, 0.5);
+        }
+    }
+
+    #slide-prev {
+        &::after {
+            left: 22px;
+        }
+    }
+
+    #slide-next {
+        &::after {
+            right: 22px;
+        }
+    }
+
+    .swiper-button {
+        button {
+            height: 70px;
+            width: 70px;
+
+            border: 3px solid hsla(0, 0%, 98%, 0.5);
+            border-radius: 50%;
+
+            background-color: transparent;
+
+            transition: filter 0.2s;
+
+            -webkit-tap-highlight-color: transparent;
+    
+            &:hover {
+                cursor: pointer;
+        
+                filter: brightness(0.93);
+            }
+        }
+    }
+}
