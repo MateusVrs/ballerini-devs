@@ -26,13 +26,16 @@ export function DevsModalContextProvider(props: DevsModalContextProviderProps) {
     const stateIsDeleteModalOpen = useState(false)
     const stateDevToHandleId = useState(null as string | null)
 
+    const stateIsDevInfoModalOpen = useState(false)
+
     return (
         <DevsModalContext.Provider value={{
             stateDevInfo,
             stateIsDevsModalOpen,
             stateIsDevsModalToEdit,
             stateIsDeleteModalOpen,
-            stateDevToHandleId
+            stateDevToHandleId,
+            stateIsDevInfoModalOpen
         }}>
             {props.children}
         </DevsModalContext.Provider>
