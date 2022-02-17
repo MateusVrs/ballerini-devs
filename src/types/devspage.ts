@@ -6,6 +6,7 @@ export type DevsModalContextType = {
     stateIsDevsModalToEdit: [boolean, React.Dispatch<React.SetStateAction<boolean>>]
     stateIsDeleteModalOpen: [boolean, React.Dispatch<React.SetStateAction<boolean>>]
     stateDevToHandleId: [string | null, React.Dispatch<React.SetStateAction<string | null>>]
+    stateIsDevInfoModalOpen: [boolean, React.Dispatch<React.SetStateAction<boolean>>]
 }
 
 export type EachDevInPageDataType = {

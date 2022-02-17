@@ -28,7 +28,7 @@ export async function handleDevs({ devContextValue, devId, event, isEditModal }:
     event.preventDefault()
     Object.keys(devInfo).find((key) => {
         if (!devInfo[key as keyof DevInfoType]) {
-            if (key !== 'photo') {
+            if (key === 'name' || key === 'role' || key === 'avatar') {
                 enableAddDev = false
                 return toast.error('Complete todas as informações')
             }

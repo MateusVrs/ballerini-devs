@@ -11,14 +11,15 @@ import { Fragment } from 'react';
 import { DevCardProps } from '../types/devcard';
 
 export function DevCard({ devData, ...props }: DevCardProps) {
-    const { stateIsDeleteModalOpen, stateDevInfo, stateDevToHandleId, stateIsDevsModalToEdit, stateIsDevsModalOpen } = useDevsPage()
+    const { stateIsDeleteModalOpen, stateDevInfo, stateDevToHandleId, stateIsDevsModalToEdit, stateIsDevsModalOpen, stateIsDevInfoModalOpen } = useDevsPage()
 
     const [, setIsDevsModalOpen] = stateIsDevsModalOpen
     const [, setIsDeleteModalOpen] = stateIsDeleteModalOpen
     const [, setIsDevsModalToEdit] = stateIsDevsModalToEdit
     const [, setDevToHandleId] = stateDevToHandleId
     const [, setDevInfo] = stateDevInfo
-    
+    const [, setIsDevInfoModalOpen] = stateIsDevInfoModalOpen
+
     return (
         <Fragment>
             {props.photoURL &&
@@ -37,7 +38,10 @@ export function DevCard({ devData, ...props }: DevCardProps) {
                         <main>
                             <a href={devData.githubURL}><img src={devGithubImg} alt="github logo" /></a>
                             <a href={devData.linkedinURL}><img src={devLinkedinImg} alt="linkedin logo" /></a>
-                            <Button type='button'>
+                            <Button type='button' onClick={() => {
+                                setIsDevInfoModalOpen(true)
+                                setDevInfo(devData)
+                            }}>
                                 Ver mais
                             </Button>
                         </main>

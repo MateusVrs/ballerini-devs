@@ -1,6 +1,6 @@
 export type DevInfoType = {
     name: string | null,
-    photo: File | null,
+    photo: File | null | string,
     role: string | null,
     githubURL: string | null,
     linkedinURL: string | null,
