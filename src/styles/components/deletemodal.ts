@@ -6,7 +6,7 @@ export const ReactDeleteModalStyles = {
     content: {
         color: '#fff',
         margin: 'auto',
-        maxHeight: '250px',
+        maxHeight: '270px',
         maxWidth: '460px',
         border: '0',
         padding: '0',

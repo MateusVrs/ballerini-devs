@@ -37,7 +37,22 @@ $main-green: #27AE60;
 
             font-weight: 500;
             font-size: 25px;
+
+            margin: 0 auto;
         }
+    }
+
+    .button {
+        color: black;
+
+        max-height: 40px;
+        min-width: 125px;
+
+        text-transform: capitalize;
+        font-size: 20px;
+
+        padding: 0.55rem 1.2rem;
+        margin-bottom: 0.8rem;
     }
 
     form {
@@ -71,10 +86,10 @@ $main-green: #27AE60;
                 }
             }
     
-            div {
+            .input-container {
                 @extend %div-input-space;
 
-                input, div, textarea {
+                input, .input-container, textarea {
                     color: hsla(0, 0%, 0%, 0.7);
 
                     font-family: 'Maven Pro', sans-serif;
@@ -103,10 +118,20 @@ $main-green: #27AE60;
 
                 textarea {
                     resize: vertical;
-                    min-height: 30px;
+                    
+                    height: auto;
+                    min-height: 70px;
 
                     padding: 0 0.65rem;
                     padding-top: 0.5rem;
+                }
+
+                .creatable-container {
+                    color: #000;
+
+                    div {
+                        max-width: 310px;  
+                    }
                 }
             }
         }
@@ -114,20 +139,12 @@ $main-green: #27AE60;
         .buttons-container {
             display: flex;
             justify-content: center;
+            align-items: center;
             gap: 40px;
 
+            flex-grow: 1;
+
             margin-top: 0.8rem;
-
-            .button {
-                color: black;
-                min-width: 125px;
-
-                text-transform: capitalize;
-                font-size: 20px;
-
-                padding: 0.55rem 1.2rem;
-                margin-bottom: 2.2rem;
-            }
 
             .cancel {
                 background-color: $background-input-base;
