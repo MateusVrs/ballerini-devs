@@ -28,6 +28,8 @@ export function DevsPage() {
         stateIsDeleteModalOpen, stateDevToHandleId,
         stateIsDevInfoModalOpen, stateDevInfo } = useDevsPage()
 
+    const [didLoad, setDidLoad] = useState(false)
+
     const [isDevsModalOpen, setIsDevsModalOpen] = stateIsDevsModalOpen
     const [isDevsModalToEdit, setIsDevsModalToEdit] = stateIsDevsModalToEdit
 
@@ -74,7 +76,7 @@ export function DevsPage() {
                 const devData = document.data() as EachDevInPageDataType
 
                 if (docChange.type === 'added') {
-                    getDevPhoto(document, devData).then(newDev => {
+                    await getDevPhoto(document, devData).then(newDev => {
                         setDevsInPage(prevDevs => [...prevDevs, newDev])
                     })
                 } else if (docChange.type === 'removed') {
@@ -83,8 +85,8 @@ export function DevsPage() {
                     const newDev = await getDevPhoto(document, devData)
                     setDevsInPage(prevDevs => [...prevDevs.filter(devObject => Object.keys(devObject)[0] !== document.id), newDev])
                 }
+                setDidLoad(true)
             })
-
         })
 
         return () => {
@@ -118,7 +120,7 @@ export function DevsPage() {
             <div className="cards-container">
                 <div className="swiper">
                     <div className="swiper-wrapper">
-                        {devsInPage.length > 0 ? devsInPage.map((dev: DevsInPageType) => {
+                        {didLoad ? devsInPage.map((dev: DevsInPageType) => {
                             const data = Object.entries(dev)[0][1]
                             if (data.devData.name.toLocaleLowerCase().includes(searchDev.toLocaleLowerCase()) || searchDev === '') {
                                 return <DevCard key={data.devId} devId={data.devId} photoURL={data.photoURL} devData={data.devData} />

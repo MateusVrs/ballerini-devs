@@ -9,7 +9,7 @@ export function DevModalForm() {
     const { stateDevInfo } = useDevsPage()
     const [devInfo, setDevInfo] = stateDevInfo
 
-    const [selectedTechs, setSelectedTechs] = useState([] as {value: string; label: string}[])
+    const [selectedTechs, setSelectedTechs] = useState([] as { value: string; label: string }[])
 
     const defaultTechs = [
         { value: 'front-end', label: 'Front-end' },
@@ -21,7 +21,7 @@ export function DevModalForm() {
         { value: 'datascience', label: 'DataScience' }
     ]
 
-    function handleTechsOnChange(event: MultiValue<{value: string; label: string}>) {
+    function handleTechsOnChange(event: MultiValue<{ value: string; label: string }>) {
         const devTechs = [] as string[]
         event.forEach(tech => {
             devTechs.push(tech.label)
@@ -53,10 +53,10 @@ export function DevModalForm() {
         }
 
         AutoSizeTextarea(textareaList)
-        
+
         const devTechs = devInfo.techs?.split(',')
         devTechs?.forEach((tech) => {
-            setSelectedTechs(prevTechs => [...prevTechs, {value: tech, label: tech}])
+            setSelectedTechs(prevTechs => [...prevTechs, { value: tech, label: tech }])
         })
 
         return () => {
@@ -87,7 +87,13 @@ export function DevModalForm() {
             <InputInfo infoType='role' infoLabel='cargo' />
             <InputInfo infoType='githubURL' infoLabel='github' />
             <InputInfo infoType='linkedinURL' infoLabel='linkedin' />
-            <InputInfo infoType='about' infoLabel='sobre' />
+
+            <div className="input-container">
+                <label htmlFor='about'>Sobre:</label>
+                <textarea maxLength={250} id='about' name='about'
+                    value={devInfo.about ? devInfo.about : ''}
+                    onChange={(event) => setDevInfo({ ...devInfo, about: event.target.value })} />
+            </div>
 
             <div className="input-container">
                 <label htmlFor="techs">Tecnologias e Linguagens:</label>
