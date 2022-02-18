@@ -1,4 +1,5 @@
-import { DevInfoType } from "./devsmodal";
+import { DevInfoType } from "../components/devsmodal"
+
 
 export type DevsModalContextType = {
     stateDevInfo: [DevInfoType, React.Dispatch<React.SetStateAction<DevInfoType>>]
@@ -21,7 +22,9 @@ export type EachDevInPageDataType = {
 }
 
 export type DevsInPageType = {
-    devId: string,
-    photoURL: string
-    devData: EachDevInPageDataType
+    [key: string]: {
+        devId: string,
+        photoURL: string
+        devData: EachDevInPageDataType
+    }
 }
