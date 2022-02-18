@@ -20,6 +20,16 @@ export function DevCard({ devData, ...props }: DevCardProps) {
     const [, setDevInfo] = stateDevInfo
     const [, setIsDevInfoModalOpen] = stateIsDevInfoModalOpen
 
+    function isValidHttpUrl(string: string) {
+        let url;
+        try {
+            url = new URL(string);
+        } catch (_) {
+            return false;
+        }
+        return url.protocol === "http:" || url.protocol === "https:";
+    }
+
     return (
         <Fragment>
             {props.photoURL &&
@@ -37,8 +47,8 @@ export function DevCard({ devData, ...props }: DevCardProps) {
                                 <h2>{devData.role}</h2>
                             </header>
                             <main>
-                                <a href={devData.githubURL}><img src={devGithubImg} alt="github logo" /></a>
-                                <a href={devData.linkedinURL}><img src={devLinkedinImg} alt="linkedin logo" /></a>
+                                {isValidHttpUrl(devData.githubURL) && <a href={devData.githubURL}><img src={devGithubImg} alt="github logo" /></a>}
+                                {isValidHttpUrl(devData.linkedinURL) && <a href={devData.linkedinURL}><img src={devLinkedinImg} alt="linkedin logo" /></a>}
                                 <Button type='button' onClick={() => {
                                     setIsDevInfoModalOpen(true)
                                     setDevInfo(devData)

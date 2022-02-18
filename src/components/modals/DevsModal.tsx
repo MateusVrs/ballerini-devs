@@ -56,7 +56,7 @@ export function DevsModal({ isModalOpen, isEditModal, devId = null }: DevsModalP
                             })
                         })
                     }}>
-                        <DevModalForm devInfo={devInfo} setDevInfo={setDevInfo} />
+                        <DevModalForm />
                         <div className="buttons-container">
                             <Button type="button" className='cancel' onClick={() => {
                                 setIsDevsModalOpen(false)

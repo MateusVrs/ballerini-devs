@@ -1,10 +1,14 @@
 import { useEffect, useState } from "react";
-import { DevModalFormProps } from "../../types/components/devmodalform"
 
 import CreatableSelect from 'react-select/creatable';
 import { MultiValue } from "react-select";
+import { useDevsPage } from "../../hooks/useDevsPage";
+import { InputInfo } from "./InputInfo";
 
-export function DevModalForm({ devInfo, setDevInfo }: DevModalFormProps) {
+export function DevModalForm() {
+    const { stateDevInfo } = useDevsPage()
+    const [devInfo, setDevInfo] = stateDevInfo
+
     const [selectedTechs, setSelectedTechs] = useState([] as {value: string; label: string}[])
 
     const defaultTechs = [
@@ -63,12 +67,7 @@ export function DevModalForm({ devInfo, setDevInfo }: DevModalFormProps) {
 
     return (
         <div className="inputs-container">
-            <div className='input-container'>
-                <label htmlFor="name">Name:</label>
-                <input type="text" id="name" name="name"
-                    value={devInfo.name ? devInfo.name : ''}
-                    onChange={(event) => setDevInfo({ ...devInfo, name: event.target.value })} />
-            </div>
+            <InputInfo infoType='name' infoLabel='nome' />
 
             <div className="input-container">
                 <label className='avatar-label' htmlFor="avatar">Avatar:
@@ -85,33 +84,10 @@ export function DevModalForm({ devInfo, setDevInfo }: DevModalFormProps) {
                 </label>
             </div>
 
-            <div className="input-container">
-                <label htmlFor="role">Cargo:</label>
-                <input type="text" id="role" name="role"
-                    value={devInfo.role ? devInfo.role : ''}
-                    onChange={(event) => setDevInfo({ ...devInfo, role: event.target.value })} />
-            </div>
-
-            <div className="input-container">
-                <label htmlFor="github">GitHub:</label>
-                <input type="text" id="github" name="github"
-                    value={devInfo.githubURL ? devInfo.githubURL : ''}
-                    onChange={(event) => setDevInfo({ ...devInfo, githubURL: event.target.value })} />
-            </div>
-
-            <div className="input-container">
-                <label htmlFor="linkedin">Linkedin:</label>
-                <input type="text" id="linkedin" name="linkedin"
-                    value={devInfo.linkedinURL ? devInfo.linkedinURL : ''}
-                    onChange={(event) => setDevInfo({ ...devInfo, linkedinURL: event.target.value })} />
-            </div>
-
-            <div className="input-container">
-                <label htmlFor="about">Sobre:</label>
-                <textarea maxLength={150} id="about" name="about"
-                    value={devInfo.about ? devInfo.about : ''}
-                    onChange={(event) => setDevInfo({ ...devInfo, about: event.target.value })} />
-            </div>
+            <InputInfo infoType='role' infoLabel='cargo' />
+            <InputInfo infoType='github' infoLabel='github' />
+            <InputInfo infoType='linkedin' infoLabel='linkedin' />
+            <InputInfo infoType='about' infoLabel='sobre' />
 
             <div className="input-container">
                 <label htmlFor="techs">Tecnologias e Linguagens:</label>

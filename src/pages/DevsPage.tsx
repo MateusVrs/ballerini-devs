@@ -21,6 +21,7 @@ import { DevInfoModal } from "../components/modals/DevInfoModal";
 import Swiper, { Navigation } from 'swiper';
 
 import { DevsInPageType, EachDevInPageDataType } from "../types/pages/devspage"
+import { LoadingCircle } from "../components/LoadingCircle";
 
 export function DevsPage() {
     const { stateIsDevsModalOpen, stateIsDevsModalToEdit,
@@ -46,8 +47,8 @@ export function DevsPage() {
             nextEl: '.swiper-button-next',
             prevEl: '.swiper-button-prev',
         },
-        allowTouchMove: false,
         spaceBetween: 50,
+        preloadImages: true
     })
 
     async function getDevPhoto(document: QueryDocumentSnapshot<DocumentData>, devData: EachDevInPageDataType) {
@@ -117,14 +118,14 @@ export function DevsPage() {
             <div className="cards-container">
                 <div className="swiper">
                     <div className="swiper-wrapper">
-                        {devsInPage.map((dev: DevsInPageType) => {
+                        {devsInPage.length > 0 ? devsInPage.map((dev: DevsInPageType) => {
                             const data = Object.entries(dev)[0][1]
                             if (data.devData.name.toLocaleLowerCase().includes(searchDev.toLocaleLowerCase()) || searchDev === '') {
                                 return <DevCard key={data.devId} devId={data.devId} photoURL={data.photoURL} devData={data.devData} />
                             } else {
                                 return null
                             }
-                        })}
+                        }) : <LoadingCircle />}
                     </div>
                 </div>
                 <div className="swiper-button-prev swiper-button" id="slide-prev">
