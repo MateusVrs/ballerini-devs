@@ -1,0 +1,114 @@
+$main-text-color: #fff;
+$backgroud-base: #1D1D1D;
+
+.register-container {
+    display: flex;
+    align-items: center;
+
+    width: 95%;
+    margin: 0 auto;
+    
+    margin-top: 2.5rem;
+
+    color: $main-text-color;
+
+    .content-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+
+        flex: 3;
+
+
+        h2 {
+            text-align: center;
+        }
+
+        .buttons-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        > span {
+            font-size: 17px;
+        }
+
+        .buttons-divisor {
+            font-size: 13px;
+
+            display: flex;
+            align-items: center;
+            gap: 5px;
+
+            opacity: 0.75;
+        }
+
+        .line {
+            width: 70px;
+            border-top: 1px solid white;
+        }
+
+        .button {
+            text-align: center;
+            
+            color: $main-text-color;
+
+            background-color: #101010;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+
+            width: 100%;
+            height: 40px;
+        }
+
+        .github-btn {
+            img {
+                max-height: 25px;
+                max-width: 25px;
+            }
+        }
+
+        .anonymous-btn {
+            div {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                height: 23px;
+                width: 23px;
+
+                border-radius: 50%;
+                border: 2px solid $main-text-color;
+
+                span {
+                    padding-top: 0.3rem;
+
+                    font-family: 'Overpass', sans-serif;
+                    font-size: 20px;
+                    font-weight: 600;
+                }
+            }
+        }
+    }
+
+    .img-container {
+        display: flex;
+
+        flex: 2;
+
+        @media (max-width: 915px) {
+            display: none;
+        }
+
+        img {
+            height: 100%;
+            width: 100%;
+        }
+    }
+}

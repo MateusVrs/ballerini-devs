@@ -2,6 +2,7 @@ $background-input-base: #fff;
 $background-edit-button: #DBB801;
 $background-delete-button: #F42626;
 $main-green: #27AE60;
+$backgroud-base: #1D1D1D;
 
 %div-input-space {
     display: flex;
@@ -10,18 +11,49 @@ $main-green: #27AE60;
 
     font-weight: 500;
     font-size: 22px;
+
+    width: 90%;
+    margin: 0 auto;
+}
+
+.modal-component {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 12;
+
+    width: 100%;
+    height: 100%;
+
+    background-color: hsla(0, 1%, 20%, 0.7);
 }
 
 .modal-container {
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    overflow: scroll;
     
+    max-height: 650px;
+    max-width: 470px;
     height: 100%;
+    width: 90%;
 
-    margin: 0 25px;
-
+    color: #fff;
     font-family: 'Maven Pro', sans-serif;
+
+    background-color: hsla(0, 1%, 20%, 0.95);
+
+    margin: auto;
+   
+    border: 0;
+    padding: 0;
+    border-radius: 10px;
 
     h1 {
         text-transform: capitalize;
@@ -71,6 +103,9 @@ $main-green: #27AE60;
             .avatar-label {
                 @extend %div-input-space;
 
+                width: 100%;
+                margin: 0;
+
                 > div {
                     display: flex;
                     justify-content: center;
@@ -96,7 +131,7 @@ $main-green: #27AE60;
                     font-weight: 500;
                     font-size: 18px;
 
-                    width: 290px;
+                    max-width: 290px;
                     height: 30px;
 
                     padding: 0 0.65rem;
@@ -133,6 +168,7 @@ $main-green: #27AE60;
                         max-width: 310px;  
                     }
                 }
+
             }
         }
     
@@ -140,7 +176,7 @@ $main-green: #27AE60;
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 40px;
+            gap: 1rem;
 
             flex-grow: 1;
 
@@ -159,4 +195,9 @@ $main-green: #27AE60;
             }
         }
     }
+}
+
+.delete-modal {
+    max-height: 270px;
+    max-width: 460px;
 }
