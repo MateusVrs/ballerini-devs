@@ -55,11 +55,16 @@ export function Chat() {
     }
 
     function handleEmojiPickerRender() {
-        return <Picker onEmojiClick={(event, emojiObject) => handleEmojiPick(event, emojiObject)}
-            pickerStyle={{
-                backgroundColor: '#1D1D1D', boxShadow: '0 0 0px 1px black',
-                borderColor: '#1D1D1D', display: isEmojiOpen ? 'flex' : 'none'
-            }} />
+        if (isEmojiOpen) {
+            return (
+                <Picker onEmojiClick={(event, emojiObject) => handleEmojiPick(event, emojiObject)}
+                    pickerStyle={{
+                        backgroundColor: '#1D1D1D', boxShadow: '0 0 0px 1px black', borderColor: '#1D1D1D'
+                    }} />
+            )
+        } else {
+            return null
+        }
     }
 
     useEffect(() => {
