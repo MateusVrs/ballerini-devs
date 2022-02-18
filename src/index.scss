@@ -22,3 +22,7 @@ body {
   border-radius: 999px;
   background: #171717;
 }
+
+::-webkit-scrollbar-corner {
+  background: $backgroud-base;
+}
