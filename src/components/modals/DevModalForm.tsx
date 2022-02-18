@@ -85,8 +85,8 @@ export function DevModalForm() {
             </div>
 
             <InputInfo infoType='role' infoLabel='cargo' />
-            <InputInfo infoType='github' infoLabel='github' />
-            <InputInfo infoType='linkedin' infoLabel='linkedin' />
+            <InputInfo infoType='githubURL' infoLabel='github' />
+            <InputInfo infoType='linkedinURL' infoLabel='linkedin' />
             <InputInfo infoType='about' infoLabel='sobre' />
 
             <div className="input-container">

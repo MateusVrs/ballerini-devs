@@ -16,13 +16,12 @@ import { useHideElement } from "../hooks/useHideElement"
 import Picker from 'emoji-picker-react';
 
 import { messagesSnapshotType, MessagesType, FirebaseMessageType } from "../types/components/chat";
-import { LoadingCircle } from "./LoadingCircle"
 
 export function Chat() {
     const { user } = useAuth()
 
     const [messageToSend, setMessageToSend] = useState('')
-    const [messages, setMessages] = useState(null as MessagesType[] | null)
+    const [messages, setMessages] = useState([] as MessagesType[])
 
     const [isEmojiOpen, setIsEmojiOpen] = useState(false)
     useHideElement({ elementId: 'emoji-picker', setShowElement: setIsEmojiOpen })
@@ -98,11 +97,9 @@ export function Chat() {
             }} />
             <div className="chat-container">
                 <div className="messages-container">
-                    {messages !== null ? (
-                        <ScrollableFeed>
-                            {messages.map(message => <Message key={message.key} messageInfo={message} />)}
-                        </ScrollableFeed>
-                    ) : <LoadingCircle />}
+                    <ScrollableFeed>
+                        {messages.map(message => <Message key={message.key} messageInfo={message} />)}
+                    </ScrollableFeed>
                 </div>
             </div>
             <div className="message-input-container">

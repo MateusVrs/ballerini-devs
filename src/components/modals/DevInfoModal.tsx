@@ -14,6 +14,17 @@ export function DevInfoModal({ isModalOpen, devInfo }: DevInfoModalProps) {
     const { stateIsDevInfoModalOpen } = useDevsPage()
     const [, setIsDevInfoModalOpen] = stateIsDevInfoModalOpen
 
+    function isValidHttpUrl(string: string | null) {
+        let newString = string ? string : ''
+        let url;
+        try {
+            url = new URL(newString);
+        } catch (_) {
+            return false;
+        }
+        return url.protocol === "http:" || url.protocol === "https:";
+    }
+
     return (
         <Modal isModalOpen={isModalOpen} >
             <div className="modal-container">
@@ -30,12 +41,12 @@ export function DevInfoModal({ isModalOpen, devInfo }: DevInfoModalProps) {
                     </ul>
                 </div>
                 <div className="social-container">
-                    {devInfo.githubURL &&
-                        <a href={devInfo.githubURL} target='_blank' rel="noreferrer">
+                    {isValidHttpUrl(devInfo.githubURL) &&
+                        <a href={devInfo.githubURL!} target='_blank' rel="noreferrer">
                             <img src={devGithubImg} alt="github logo" />
                         </a>}
-                    {devInfo.linkedinURL &&
-                        <a href={devInfo.linkedinURL} target='_blank' rel="noreferrer">
+                    {isValidHttpUrl(devInfo.linkedinURL) &&
+                        <a href={devInfo.linkedinURL!} target='_blank' rel="noreferrer">
                             <img src={devLinkedinImg} alt="linkedin logo" />
                         </a>}
                 </div>
