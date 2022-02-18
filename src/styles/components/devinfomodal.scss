@@ -20,6 +20,9 @@
         ul {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
+            column-gap: 2rem;
+
+            padding-left: 1.8rem;
             li {
                 font-family: 'Maven Pro', sans-serif;
                 font-weight: 400;
