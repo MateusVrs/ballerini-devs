@@ -1,0 +1,21 @@
+$background-input-base: #fff;
+$main-text-color: #fff;
+$main-green: #27AE60;
+$backgroud-base: #1D1D1D;
+
+#header-base {
+    .community-container, .signout-container {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+
+        @media (max-width: 1000px) {
+            justify-content: center;
+        }
+
+        .button {
+            font-size: 14px;
+            color: $main-text-color;
+        }
+    }
+}
