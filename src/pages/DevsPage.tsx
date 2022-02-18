@@ -87,6 +87,9 @@ export function DevsPage() {
                 }
                 setDidLoad(true)
             })
+            if (snapResult.docChanges().length === 0) {
+                setDidLoad(true)
+            }
         })
 
         return () => {

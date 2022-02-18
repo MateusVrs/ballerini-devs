@@ -5,12 +5,16 @@ import { Button } from "../Button";
 
 import { DevInfoModalProps } from "../../types/components/devinfomodal";
 
+import { devInfoDefault } from '../../contexts/DevsModalContext';
 import { useDevsPage } from '../../hooks/useDevsPage';
 
 import '../../styles/components/devinfomodal.scss'
 import { Modal } from '../Modal';
 
 export function DevInfoModal({ isModalOpen, devInfo }: DevInfoModalProps) {
+    const { stateDevInfo } = useDevsPage()
+    const [, setDevInfo] = stateDevInfo
+
     const { stateIsDevInfoModalOpen } = useDevsPage()
     const [, setIsDevInfoModalOpen] = stateIsDevInfoModalOpen
 
@@ -52,6 +56,7 @@ export function DevInfoModal({ isModalOpen, devInfo }: DevInfoModalProps) {
                 </div>
                 <div className="buttons-container">
                     <Button type="button" className='close' onClick={() => {
+                        setDevInfo(devInfoDefault)
                         setIsDevInfoModalOpen(false)
                     }}>fechar</Button>
                 </div>
