@@ -1,8 +1,8 @@
 import { createContext, useState } from "react";
 
-import { DevInfoType } from "../types/devsmodal";
-import { DevsModalContextProviderProps } from "../types/devsmodalcontext";
-import { DevsModalContextType } from "../types/devspage";
+import { DevInfoType } from "../types/components/devsmodal";
+import { DevsModalContextProviderProps } from "../types/contexts/devsmodalcontext";
+import { DevsModalContextType } from "../types/pages/devspage";
 
 export const devInfoDefault: DevInfoType = {
     name: null,
