@@ -19,12 +19,18 @@ export function LandingPage() {
         <img src={blackBlobImg} alt="black blob" className="blobs black-blob" />
         <img src={greenBlobImg} alt="green blob" className="blobs green-blob" />
       </div>
-      <HeaderBase />
+      <HeaderBase>
+        <div className="buttons-container community-chat-container">
+          <Button type="button" className="chat-enter" onClick={() => navigate('/chat')}>
+            Chat da comunidade
+          </Button>
+        </div>
+      </HeaderBase>
       <main id="landingpage-main">
         <div className="text-content">
           <h2>O maior banco de devs do Brasil</h2>
           <p>Não importa se front ou back end, fazer networking é muito importante. Faça parte da maior comunidade de desenvolvedores brasileiros.</p>
-          <div className="button-containerr">
+          <div className="button-container">
             <Button type="button" onClick={() => navigate('/devs')}>Entre agora</Button>
             <div className="button-line"></div>
           </div>

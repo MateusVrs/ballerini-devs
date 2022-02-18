@@ -6,7 +6,7 @@ import balleriniDevsLogo from '../assets/images/logo.svg'
 import '../styles/components/headerbase.scss'
 import { Link } from "react-router-dom";
 
-import { HeaderBaseProps } from "../types/headerbase";
+import { HeaderBaseProps } from "../types/components/headerbase";
 
 export function HeaderBase({ children }: HeaderBaseProps) {
     return (
