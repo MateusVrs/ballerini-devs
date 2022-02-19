@@ -68,7 +68,7 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
     }, [setIsLoading, setIsDevsModalOpen, setIsDevsModalToEdit, setDevInfo])
 
     async function signInWithGithub(redirect: string) {
-        await supabase.auth.signIn({ provider: 'github' }, { redirectTo: `http://localhost:3000/${redirect}/` })
+        await supabase.auth.signIn({ provider: 'github' }, { redirectTo: `https://ballerinidevs.web.app/${redirect}/` })
     }
 
     return (
