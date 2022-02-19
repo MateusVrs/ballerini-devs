@@ -1,6 +1,5 @@
 import { deleteDoc, doc } from "firebase/firestore"
-import { auth, database, storage } from "../../services/firebase"
-import { signOut } from "firebase/auth"
+import { database, storage } from "../../services/firebase"
 import { deleteObject, ref } from "firebase/storage"
 
 import { FormEvent, useEffect } from "react"
@@ -13,6 +12,7 @@ import { DeleteDevModalProps } from "../../types/components/deletemodal"
 
 import { useDevsPage } from "../../hooks/useDevsPage"
 import { useLoading } from "../../hooks/useLoading"
+import { supabase } from "../../services/supabse"
 
 export function DeleteDevModal({ isModalOpen, devInfo }: DeleteDevModalProps) {
     const { isLoading, setIsLoading } = useLoading()
@@ -48,12 +48,10 @@ export function DeleteDevModal({ isModalOpen, devInfo }: DeleteDevModalProps) {
                         <p>Tem certeza que deseja deletar este desenvolvedor?</p>
                     </div>
                     <form onSubmit={(event) => {
-                        handleDeleteDev(event).then(() => {
+                        handleDeleteDev(event).then(async () => {
                             setIsDeleteModalOpen(false)
                             setIsLoading(false)
-                            signOut(auth).then(() => {
-                                window.location.reload()
-                            })
+                            await supabase.auth.signOut()
                         })
                     }}>
                         <div className="buttons-container">

@@ -1,11 +1,9 @@
 import { FormEvent, useEffect } from "react";
 import { useDevsPage } from "../../hooks/useDevsPage";
 
-import { signOut } from "firebase/auth";
-import { auth } from "../../services/firebase";
+import { supabase } from '../../services/supabse'
 
 import { handleDevs } from "../functions/handleDevs";
-import { isValidHttpUrl } from "../functions/isValidHttpUrl";
 
 import { DevsModalProps } from "../../types/components/devsmodal";
 
@@ -30,23 +28,13 @@ export function DevsModal({ isModalOpen, isEditModal, devId = null }: DevsModalP
     function handleSubmitDev(event: FormEvent) {
         event.preventDefault()
 
-        if (!isValidHttpUrl(devInfo.githubURL) && devInfo.githubURL !== null && devInfo.githubURL !== '') {
-            toast.error("Coloque uma URL válida")
-            return null
-        }
-
-        if (!isValidHttpUrl(devInfo.linkedinURL) && devInfo.linkedinURL !== null && devInfo.linkedinURL !== '') {
-            toast.error("Coloque uma URL válida")
-            return null
-        }
-
         const handleDevsAttrs = {
             devId: devId,
             isEditModal: isEditModal,
             devContextValue: devContextValue
         }
 
-        checkModalInfo({ devContextValue, event }).then(() => {
+        checkModalInfo(devContextValue).then(() => {
             setIsLoading(true)
             handleDevs(handleDevsAttrs).then(() => {
                 setDevInfo(devInfoDefault)
@@ -76,7 +64,7 @@ export function DevsModal({ isModalOpen, isEditModal, devId = null }: DevsModalP
                         <div className="buttons-container">
                             <Button type="button" className='cancel' onClick={async () => {
                                 if (!isEditModal) {
-                                    await signOut(auth).then(() => window.location.reload())
+                                    await supabase.auth.signOut()
                                 }
                                 setIsDevsModalOpen(false)
                                 setDevInfo(devInfoDefault)

@@ -10,9 +10,10 @@ import { Fragment } from 'react';
 
 import { DevCardProps } from '../types/components/devcard';
 import { isValidHttpUrl } from './functions/isValidHttpUrl';
-import { auth } from '../services/firebase';
+import { useAuth } from '../hooks/useAuth';
 
 export function DevCard({ devData, ...props }: DevCardProps) {
+    const { user } = useAuth()
     const { stateIsDeleteModalOpen, stateDevInfo, stateDevToHandleId, stateIsDevsModalToEdit, stateIsDevsModalOpen, stateIsDevInfoModalOpen } = useDevsPage()
 
     const [, setIsDevsModalOpen] = stateIsDevsModalOpen
@@ -50,7 +51,7 @@ export function DevCard({ devData, ...props }: DevCardProps) {
                             </main>
                         </div>
                         <footer>
-                            {auth.currentUser?.uid === props.devId && (
+                            {user?.id === props.devId && (
                                 <Fragment>
                                     <Button type='button' className='edit' onClick={() => {
                                         setDevInfo({

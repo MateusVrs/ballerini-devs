@@ -9,15 +9,14 @@ import justProgrammerImg from '../assets/images/just-programmer.svg'
 import '../styles/components/register.scss'
 
 import { useAuth } from "../hooks/useAuth";
-import { signInAnonymously } from "firebase/auth";
-import { auth } from "../services/firebase";
+import { signInAnonymouslySupabase } from "../contexts/AuthContext";
 
 export function Register() {
     const { signInWithGithub, user } = useAuth()
 
     async function handleSign() {
         if (!user) {
-            await signInWithGithub()
+            await signInWithGithub('chat')
         }
     }
 
@@ -41,7 +40,7 @@ export function Register() {
                             <span>ou entre</span>
                             <div className="line"></div>
                         </div>
-                        <Button type="button" className='anonymous-btn' onClick={() => signInAnonymously(auth)}>
+                        <Button type="button" className='anonymous-btn' onClick={() => signInAnonymouslySupabase()}>
                             <div><span>?</span></div>
                             <span>Anônimo</span>
                         </Button>

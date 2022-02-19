@@ -6,6 +6,7 @@ import '../styles/components/message.scss'
 import { useAuth } from "../hooks/useAuth";
 import { ref, remove } from "firebase/database";
 import { realtimedb } from "../services/firebase";
+import { supabase } from "../services/supabse";
 
 export function Message({ messageInfo }: MessageProps) {
     const { user } = useAuth()
@@ -23,7 +24,7 @@ export function Message({ messageInfo }: MessageProps) {
                 <div className="content">
                     <div className="header">
                         <span>{messageInfo.authorName}</span>
-                        {user?.id === messageInfo.author && (
+                        {(user?.id === messageInfo.author && supabase.auth.user()?.email !== process.env.REACT_APP_ANONYMOUS_EMAIL ) && (
                             <div className="buttons-container">
                                 <button type="button" onClick={() => handleDeleteMessage()}>
                                     <span className="material-icons-outlined">delete</span>

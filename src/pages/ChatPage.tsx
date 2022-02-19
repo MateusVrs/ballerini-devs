@@ -1,6 +1,3 @@
-import { signOut } from "firebase/auth";
-import { auth } from "../services/firebase";
-
 import { useAuth } from "../hooks/useAuth";
 import { useLoading } from "../hooks/useLoading";
 
@@ -14,6 +11,7 @@ import { Register } from "../components/Register";
 
 import '../styles/pages/chatpage.scss'
 import { LoadingCircle } from "../components/LoadingCircle";
+import { supabase } from "../services/supabse";
 
 export function ChatPage() {
     const { user } = useAuth()
@@ -41,10 +39,7 @@ export function ChatPage() {
             <HeaderBase>
                 {user ? (
                     <div className="signout-container">
-                        <Button type="button" onClick={() => {
-                            signOut(auth)
-                            window.location.reload()
-                        }}>
+                        <Button type="button" onClick={() => supabase.auth.signOut()}>
                             Log out
                         </Button>
                     </div>

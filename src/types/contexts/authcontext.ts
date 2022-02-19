@@ -1,14 +1,14 @@
 import { ReactNode } from "react"
 
-export type User = {
+export type UserContextType = {
     id: string
     name: string
     avatar: string
 }
 
 export type AuthContextType = {
-    user: User | undefined | null
-    signInWithGithub: () => Promise<void>
+    user: UserContextType | undefined | null
+    signInWithGithub: (value: string) => Promise<void>
 }
 
 export type AuthContextProviderProps = {

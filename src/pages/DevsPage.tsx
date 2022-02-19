@@ -3,8 +3,9 @@ import { useDevsPage } from "../hooks/useDevsPage";
 import { useAuth } from "../hooks/useAuth";
 
 import { collection, DocumentData, onSnapshot, query, QueryDocumentSnapshot } from "firebase/firestore";
-import { auth, database, storage } from "../services/firebase";
+import { database, storage } from "../services/firebase";
 import { getDownloadURL, ref } from "firebase/storage";
+import { supabase } from "../services/supabse";
 
 import searchIcon from '../assets/images/search-icon.svg'
 import githubLogo from '../assets/images/github.svg'
@@ -24,11 +25,9 @@ import Swiper, { Navigation } from 'swiper';
 
 import { DevsInPageType, EachDevInPageDataType } from "../types/pages/devspage"
 import { LoadingCircle } from "../components/LoadingCircle";
-import { getRedirectResult, signOut } from "firebase/auth";
-import { checkIfDevCardExists } from "../components/functions/checkIfDevCardExists";
 
 export function DevsPage() {
-    const { signInWithGithub } = useAuth()
+    const { user, signInWithGithub } = useAuth()
 
     const { stateIsDevsModalOpen, stateIsDevsModalToEdit,
         stateIsDeleteModalOpen, stateDevToHandleId,
@@ -50,13 +49,25 @@ export function DevsPage() {
 
     new Swiper('.swiper', {
         modules: [Navigation],
-        slidesPerView: 'auto',
+        slidesPerView: 1,
+        breakpoints: {
+            320: {
+                slidesPerView: 1
+            },
+            640: {
+                slidesPerView: 2
+            },
+            1024: {
+                slidesPerView: 3
+            }
+        },
         navigation: {
             nextEl: '.swiper-button-next',
             prevEl: '.swiper-button-prev',
         },
         spaceBetween: 50,
-        preloadImages: true
+        preloadImages: true,
+        centerInsufficientSlides: true
     })
 
     async function getDevPhoto(document: QueryDocumentSnapshot<DocumentData>, devData: EachDevInPageDataType) {
@@ -74,15 +85,6 @@ export function DevsPage() {
     }
 
     useEffect(() => {
-
-        getRedirectResult(auth).then(async credential => {
-            console.log(credential)
-            if (credential) {
-                const user = credential.user
-                checkIfDevCardExists(user, devInfo, setIsDevsModalOpen, setIsDevsModalToEdit, setDevInfo)
-            }
-        })
-
         const queryResult = query(collection(database, 'devs'))
 
         const unsubscribe = onSnapshot(queryResult, snapResult => {
@@ -97,8 +99,9 @@ export function DevsPage() {
                 } else if (docChange.type === 'removed') {
                     setDevsInPage(prevDevs => prevDevs.filter(devObject => Object.keys(devObject)[0] !== document.id))
                 } else if (docChange.type === 'modified') {
-                    const newDev = await getDevPhoto(document, devData)
-                    setDevsInPage(prevDevs => [...prevDevs.filter(devObject => Object.keys(devObject)[0] !== document.id), newDev])
+                    await getDevPhoto(document, devData).then(newDev => {
+                        setDevsInPage(prevDevs => [...prevDevs.filter(devObject => Object.keys(devObject)[0] !== document.id), newDev])
+                    })
                 }
                 setDidLoad(true)
             })
@@ -127,15 +130,12 @@ export function DevsPage() {
                     />
                 </div>
                 <div className="buttons-container">
-                    {auth.currentUser ? (
-                        <Button type="button" onClick={() => {
-                            signOut(auth)
-                            window.location.reload()
-                        }}>
+                    {user ? (
+                        <Button type="button" onClick={() => supabase.auth.signOut()}>
                             Log out
                         </Button>
                     ) : (
-                        <Button className="github-button" type="button" onClick={() => signInWithGithub()}>
+                        <Button className="github-button" type="button" onClick={async () => signInWithGithub('devs')}>
                             <img src={githubLogo} alt="github logo" />
                             Crie seu perfil
                         </Button>
