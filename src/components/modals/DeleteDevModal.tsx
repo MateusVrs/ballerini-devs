@@ -1,6 +1,6 @@
 import { deleteDoc, doc } from "firebase/firestore"
-import { database, storage } from "../../services/firebase"
-
+import { auth, database, storage } from "../../services/firebase"
+import { signOut } from "firebase/auth"
 import { deleteObject, ref } from "firebase/storage"
 
 import { FormEvent, useEffect } from "react"
@@ -51,6 +51,9 @@ export function DeleteDevModal({ isModalOpen, devInfo }: DeleteDevModalProps) {
                         handleDeleteDev(event).then(() => {
                             setIsDeleteModalOpen(false)
                             setIsLoading(false)
+                            signOut(auth).then(() => {
+                                window.location.reload()
+                            })
                         })
                     }}>
                         <div className="buttons-container">

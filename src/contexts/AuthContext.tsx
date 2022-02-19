@@ -1,29 +1,34 @@
 import { GithubAuthProvider, signInWithRedirect } from "firebase/auth";
 import { auth } from "../services/firebase";
+import { checkIfDevCardExists } from "../components/functions/checkIfDevCardExists";
 
 import { createContext, useEffect, useState } from "react";
+import { useLoading } from "../hooks/useLoading";
 
 import { AuthContextProviderProps, AuthContextType, User } from "../types/contexts/authcontext";
 
 import anonymousImg from '../assets/images/anonymous.png'
-import { useLoading } from "../hooks/useLoading";
+import { useDevsPage } from "../hooks/useDevsPage";
 
 export const AuthContext = createContext({} as AuthContextType)
 
-export function AuthContextProvider({children}: AuthContextProviderProps) {
+export function AuthContextProvider({ children }: AuthContextProviderProps) {
     const [user, setUser] = useState<User | null>(null)
     const { setIsLoading } = useLoading()
 
-    async function signInWithGithub() {
-        const provider = new GithubAuthProvider()
+    const { stateIsDevsModalOpen, stateIsDevsModalToEdit, stateDevInfo } = useDevsPage()
 
-        await signInWithRedirect(auth, provider)
-    }
+    const [, setIsDevsModalOpen] = stateIsDevsModalOpen
+    const [, setIsDevsModalToEdit] = stateIsDevsModalToEdit
+    const [devInfo, setDevInfo] = stateDevInfo
 
     useEffect(() => {
-
         const unsubscribe = auth.onAuthStateChanged(user => {
             if (user) {
+                if (user.providerData.length) {
+                    checkIfDevCardExists(user, devInfo, setIsDevsModalOpen, setIsDevsModalToEdit, setDevInfo)
+                }
+
                 const { uid, displayName, photoURL } = user
 
                 const newUser: User = {
@@ -44,7 +49,13 @@ export function AuthContextProvider({children}: AuthContextProviderProps) {
             unsubscribe()
         }
 
-    }, [setIsLoading])
+    }, [setIsLoading, setIsDevsModalOpen, setIsDevsModalToEdit, setDevInfo])
+
+    async function signInWithGithub() {
+        const provider = new GithubAuthProvider()
+
+        await signInWithRedirect(auth, provider)
+    }
 
     return (
         <AuthContext.Provider value={{ user, signInWithGithub }}>

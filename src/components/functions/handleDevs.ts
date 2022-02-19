@@ -1,10 +1,8 @@
 import { doc, setDoc, updateDoc } from "firebase/firestore";
 import { ref, uploadBytes } from "firebase/storage";
-import { database, storage } from "../../services/firebase";
+import { auth, database, storage } from "../../services/firebase";
 
 import { DevsModalContextType } from "../../types/pages/devspage";
-
-import { v4 as uuidv4 } from 'uuid';
 
 type handleDevsAttrs = {
     devId: string | null,
@@ -29,7 +27,7 @@ export async function handleDevs({ devContextValue, devId, isEditModal }: handle
             await updateDoc(doc(database, `devs/${devId}`), { ...devInfo, photo: `${devId}` })
         }
     } else {
-        const uuid = uuidv4()
+        const uuid = auth.currentUser?.uid
 
         const photo = devInfo.photo as File
         const newFileRef = ref(storage, `photos/${uuid}`)

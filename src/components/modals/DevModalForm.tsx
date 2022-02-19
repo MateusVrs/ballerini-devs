@@ -85,8 +85,8 @@ export function DevModalForm() {
             </div>
 
             <InputInfo infoType='role' infoLabel='cargo' />
-            <InputInfo infoType='githubURL' infoLabel='github' />
-            <InputInfo infoType='linkedinURL' infoLabel='linkedin' />
+            <InputInfo infoType='githubURL' infoLabel='github url' />
+            <InputInfo infoType='linkedinURL' infoLabel='linkedin url' />
 
             <div className="input-container">
                 <label htmlFor='about'>Sobre:</label>
@@ -96,7 +96,7 @@ export function DevModalForm() {
             </div>
 
             <div className="input-container">
-                <label htmlFor="techs">Tecnologias e Linguagens:</label>
+                <label htmlFor="techs">tecnologias:</label>
                 <div className="creatable-container">
                     <CreatableSelect
                         menuPlacement="top"

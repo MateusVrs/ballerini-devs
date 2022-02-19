@@ -12,7 +12,7 @@ export async function checkModalInfo({devContextValue, event}: {event: FormEvent
     event.preventDefault()
     Object.keys(devInfo).find((key) => {
         if (!devInfo[key as keyof DevInfoType]) {
-            if (key === 'name' || key === 'role' || key === 'avatar') {
+            if (key === 'name' || key === 'role' || key === 'photo') {
                 enableAddDev = false
                 return toast.error('Complete: Nome, Avatar e Cargo')
             }

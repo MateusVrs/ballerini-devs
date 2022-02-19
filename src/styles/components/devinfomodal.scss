@@ -10,11 +10,17 @@
     }
 
     .about-container {
+        width: 95%;
+
         p {
+            font-weight: 400;
             font-size: 20px;
-            text-align: justify;
 
             margin-bottom: 2.5rem;
+
+            &::first-letter {
+                text-transform: capitalize;
+            }
         }
 
         ul {

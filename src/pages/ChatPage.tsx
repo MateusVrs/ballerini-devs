@@ -41,7 +41,10 @@ export function ChatPage() {
             <HeaderBase>
                 {user ? (
                     <div className="signout-container">
-                        <Button type="button" onClick={() => signOut(auth)}>
+                        <Button type="button" onClick={() => {
+                            signOut(auth)
+                            window.location.reload()
+                        }}>
                             Log out
                         </Button>
                     </div>

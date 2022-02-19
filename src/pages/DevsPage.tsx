@@ -1,11 +1,13 @@
 import { Fragment, useEffect, useState } from "react";
 import { useDevsPage } from "../hooks/useDevsPage";
+import { useAuth } from "../hooks/useAuth";
 
 import { collection, DocumentData, onSnapshot, query, QueryDocumentSnapshot } from "firebase/firestore";
-import { database, storage } from "../services/firebase";
+import { auth, database, storage } from "../services/firebase";
 import { getDownloadURL, ref } from "firebase/storage";
 
 import searchIcon from '../assets/images/search-icon.svg'
+import githubLogo from '../assets/images/github.svg'
 
 import '../styles/pages/devspage.scss'
 import '../styles/components/devsmodal.scss'
@@ -22,8 +24,12 @@ import Swiper, { Navigation } from 'swiper';
 
 import { DevsInPageType, EachDevInPageDataType } from "../types/pages/devspage"
 import { LoadingCircle } from "../components/LoadingCircle";
+import { getRedirectResult, signOut } from "firebase/auth";
+import { checkIfDevCardExists } from "../components/functions/checkIfDevCardExists";
 
 export function DevsPage() {
+    const { signInWithGithub } = useAuth()
+
     const { stateIsDevsModalOpen, stateIsDevsModalToEdit,
         stateIsDeleteModalOpen, stateDevToHandleId,
         stateIsDevInfoModalOpen, stateDevInfo } = useDevsPage()
@@ -36,7 +42,7 @@ export function DevsPage() {
     const [isDeleteModalOpen] = stateIsDeleteModalOpen
     const [devToHandleId] = stateDevToHandleId
 
-    const [devInfo] = stateDevInfo
+    const [devInfo, setDevInfo] = stateDevInfo
     const [isDevInfoModalOpen] = stateIsDevInfoModalOpen
 
     const [devsInPage, setDevsInPage] = useState([] as DevsInPageType[])
@@ -68,6 +74,15 @@ export function DevsPage() {
     }
 
     useEffect(() => {
+
+        getRedirectResult(auth).then(async credential => {
+            console.log(credential)
+            if (credential) {
+                const user = credential.user
+                checkIfDevCardExists(user, devInfo, setIsDevsModalOpen, setIsDevsModalToEdit, setDevInfo)
+            }
+        })
+
         const queryResult = query(collection(database, 'devs'))
 
         const unsubscribe = onSnapshot(queryResult, snapResult => {
@@ -96,7 +111,7 @@ export function DevsPage() {
             unsubscribe()
         }
 
-    }, [setDevsInPage])
+    }, [setDevsInPage, setIsDevsModalOpen, setIsDevsModalToEdit, setDevInfo])
 
     return (
         <Fragment>
@@ -112,12 +127,19 @@ export function DevsPage() {
                     />
                 </div>
                 <div className="buttons-container">
-                    <Button type="button" onClick={() => {
-                        setIsDevsModalOpen(true)
-                        setIsDevsModalToEdit(false)
-                    }}>
-                        Adicionar desenvolvedor
-                    </Button>
+                    {auth.currentUser ? (
+                        <Button type="button" onClick={() => {
+                            signOut(auth)
+                            window.location.reload()
+                        }}>
+                            Log out
+                        </Button>
+                    ) : (
+                        <Button className="github-button" type="button" onClick={() => signInWithGithub()}>
+                            <img src={githubLogo} alt="github logo" />
+                            Crie seu perfil
+                        </Button>
+                    )}
                 </div>
             </HeaderBase>
             <div className="cards-container">
@@ -130,7 +152,7 @@ export function DevsPage() {
                             } else {
                                 return null
                             }
-                        }) : <LoadingCircle />}
+                        }) : <div className="swiper-slide" style={{ width: '90vw' }}><LoadingCircle /></div>}
                     </div>
                 </div>
                 <div className="swiper-button-prev swiper-button" id="slide-prev">

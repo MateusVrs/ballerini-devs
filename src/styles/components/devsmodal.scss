@@ -125,9 +125,7 @@ $backgroud-base: #1D1D1D;
                 @extend %div-input-space;
 
                 label {
-                    &::first-letter {
-                        text-transform: capitalize;
-                    }
+                    text-transform: capitalize;
                 }
 
                 input, .input-container, textarea {

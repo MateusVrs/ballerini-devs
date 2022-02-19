@@ -75,9 +75,17 @@ $backgroud-base: #1D1D1D;
         margin-top: 1rem;
 
         .button {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+
             font-size: 14px;
 
             color: $main-text-color;
+
+            &.github-button {
+                background-color: #101010;
+            }
         }
     }     
 }

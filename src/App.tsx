@@ -11,8 +11,8 @@ import { LandingPage } from "./pages/LandingPage";
 export function App() {
   return (
     <LoandingContextProvider>
-      <AuthContextProvider>
-        <DevsModalContextProvider>
+      <DevsModalContextProvider>
+        <AuthContextProvider>
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<LandingPage />} />
@@ -20,8 +20,8 @@ export function App() {
               <Route path="/chat" element={<ChatPage />} />
             </Routes>
           </BrowserRouter>
-        </DevsModalContextProvider>
-      </AuthContextProvider>
+        </AuthContextProvider>
+      </DevsModalContextProvider>
     </LoandingContextProvider>
   )
 }

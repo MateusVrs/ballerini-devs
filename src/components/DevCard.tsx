@@ -9,6 +9,8 @@ import { Button } from "./Button";
 import { Fragment } from 'react';
 
 import { DevCardProps } from '../types/components/devcard';
+import { isValidHttpUrl } from './functions/isValidHttpUrl';
+import { auth } from '../services/firebase';
 
 export function DevCard({ devData, ...props }: DevCardProps) {
     const { stateIsDeleteModalOpen, stateDevInfo, stateDevToHandleId, stateIsDevsModalToEdit, stateIsDevsModalOpen, stateIsDevInfoModalOpen } = useDevsPage()
@@ -19,16 +21,6 @@ export function DevCard({ devData, ...props }: DevCardProps) {
     const [, setDevToHandleId] = stateDevToHandleId
     const [, setDevInfo] = stateDevInfo
     const [, setIsDevInfoModalOpen] = stateIsDevInfoModalOpen
-
-    function isValidHttpUrl(string: string) {
-        let url;
-        try {
-            url = new URL(string);
-        } catch (_) {
-            return false;
-        }
-        return url.protocol === "http:" || url.protocol === "https:";
-    }
 
     return (
         <Fragment>
@@ -58,29 +50,33 @@ export function DevCard({ devData, ...props }: DevCardProps) {
                             </main>
                         </div>
                         <footer>
-                            <Button type='button' className='edit' onClick={() => {
-                                setDevInfo({
-                                    name: devData.name,
-                                    photo: null,
-                                    role: devData.role,
-                                    githubURL: devData.githubURL,
-                                    linkedinURL: devData.linkedinURL,
-                                    updateDate: devData.updateDate,
-                                    about: devData.about,
-                                    techs: devData.techs
-                                })
-                                setDevToHandleId(props.devId)
-                                setIsDevsModalOpen(true)
-                                setIsDevsModalToEdit(true)
-                            }}>
-                                Editar
-                            </Button>
-                            <Button type='button' className='delete' onClick={() => {
-                                setIsDeleteModalOpen(true)
-                                setDevToHandleId(props.devId)
-                            }}>
-                                Deletar
-                            </Button>
+                            {auth.currentUser?.uid === props.devId && (
+                                <Fragment>
+                                    <Button type='button' className='edit' onClick={() => {
+                                        setDevInfo({
+                                            name: devData.name,
+                                            photo: null,
+                                            role: devData.role,
+                                            githubURL: devData.githubURL,
+                                            linkedinURL: devData.linkedinURL,
+                                            updateDate: devData.updateDate,
+                                            about: devData.about,
+                                            techs: devData.techs
+                                        })
+                                        setDevToHandleId(props.devId)
+                                        setIsDevsModalOpen(true)
+                                        setIsDevsModalToEdit(true)
+                                    }}>
+                                        Editar
+                                    </Button>
+                                    <Button type='button' className='delete' onClick={() => {
+                                        setIsDeleteModalOpen(true)
+                                        setDevToHandleId(props.devId)
+                                    }}>
+                                        Deletar
+                                    </Button>
+                                </Fragment>
+                            )}
                         </footer>
                     </section>
                 </div>

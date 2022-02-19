@@ -1,7 +1,11 @@
-import { useEffect } from "react";
+import { FormEvent, useEffect } from "react";
 import { useDevsPage } from "../../hooks/useDevsPage";
 
+import { signOut } from "firebase/auth";
+import { auth } from "../../services/firebase";
+
 import { handleDevs } from "../functions/handleDevs";
+import { isValidHttpUrl } from "../functions/isValidHttpUrl";
 
 import { DevsModalProps } from "../../types/components/devsmodal";
 
@@ -10,7 +14,7 @@ import { devInfoDefault } from "../../contexts/DevsModalContext";
 import { Modal } from "../Modal";
 import { LoadingCircle } from "../LoadingCircle";
 import { Button } from "../Button";
-import { Toaster } from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 import { DevModalForm } from "./DevModalForm";
 import { useLoading } from "../../hooks/useLoading";
 import { checkModalInfo } from "../functions/checkModalInfo";
@@ -22,6 +26,35 @@ export function DevsModal({ isModalOpen, isEditModal, devId = null }: DevsModalP
 
     const [devInfo, setDevInfo] = stateDevInfo
     const [, setIsDevsModalOpen] = stateIsDevsModalOpen
+
+    function handleSubmitDev(event: FormEvent) {
+        event.preventDefault()
+
+        if (!isValidHttpUrl(devInfo.githubURL) && devInfo.githubURL !== null && devInfo.githubURL !== '') {
+            toast.error("Coloque uma URL válida")
+            return null
+        }
+
+        if (!isValidHttpUrl(devInfo.linkedinURL) && devInfo.linkedinURL !== null && devInfo.linkedinURL !== '') {
+            toast.error("Coloque uma URL válida")
+            return null
+        }
+
+        const handleDevsAttrs = {
+            devId: devId,
+            isEditModal: isEditModal,
+            devContextValue: devContextValue
+        }
+
+        checkModalInfo({ devContextValue, event }).then(() => {
+            setIsLoading(true)
+            handleDevs(handleDevsAttrs).then(() => {
+                setDevInfo(devInfoDefault)
+                setIsLoading(false)
+                setIsDevsModalOpen(false)
+            })
+        })
+    }
 
     useEffect(() => {
         setIsLoading(false)
@@ -38,27 +71,13 @@ export function DevsModal({ isModalOpen, isEditModal, devId = null }: DevsModalP
             return (
                 <div className="modal-container">
                     <h1>{isEditModal ? 'editar' : 'adicionar'} desenvolvedor</h1>
-                    <form onSubmit={(event) => {
-                        event.preventDefault()
-
-                        const handleDevsAttrs = {
-                            devId: devId,
-                            isEditModal: isEditModal,
-                            devContextValue: devContextValue
-                        }
-
-                        checkModalInfo({devContextValue, event}).then(() => {
-                            setIsLoading(true)
-                            handleDevs(handleDevsAttrs).then(() => {
-                                setDevInfo(devInfoDefault)
-                                setIsLoading(false)
-                                setIsDevsModalOpen(false)
-                            })
-                        })
-                    }}>
+                    <form onSubmit={(event) => handleSubmitDev(event)}>
                         <DevModalForm />
                         <div className="buttons-container">
-                            <Button type="button" className='cancel' onClick={() => {
+                            <Button type="button" className='cancel' onClick={async () => {
+                                if (!isEditModal) {
+                                    await signOut(auth).then(() => window.location.reload())
+                                }
                                 setIsDevsModalOpen(false)
                                 setDevInfo(devInfoDefault)
                             }}>
