@@ -20,6 +20,8 @@ import { messagesSnapshotType, MessagesType, FirebaseMessageType } from "../type
 export function Chat() {
     const { user } = useAuth()
 
+    const [isToScroll, setIsToScroll] = useState(false)
+
     const [messageToSend, setMessageToSend] = useState('')
     const [messages, setMessages] = useState([] as MessagesType[])
 
@@ -97,13 +99,18 @@ export function Chat() {
             }} />
             <div className="chat-container">
                 <div className="messages-container">
-                    <ScrollableFeed>
+                    <ScrollableFeed forceScroll={isToScroll}>
                         {messages.map(message => <Message key={message.key} messageInfo={message} />)}
                     </ScrollableFeed>
                 </div>
             </div>
             <div className="message-input-container">
-                <form onSubmit={(event) => handleSendMessage(event)}>
+                <form onSubmit={(event) => {
+                    handleSendMessage(event).then(() => {
+                        setIsToScroll(true)
+                        setIsToScroll(false)
+                    })
+                }}>
                     <div id="emoji-picker">
                         {handleEmojiPickerRender()}
                         <button type="button" className="emoji-button" onClick={() => setIsEmojiOpen(!isEmojiOpen)}>
