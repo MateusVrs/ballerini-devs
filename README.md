@@ -20,11 +20,14 @@
         <ul>
             <li><a target="_blank" rel="noreferrer" href="https://firebase.google.com/">Firebase</a></li>
             <ul>
-                <li>Authentication</li>
                 <li>Cloud Firestore</li>
                 <li>Realtime Database</li>
                 <li>Firebase Storage</li>
                 <li>Hosting</li>
+            </ul>
+            <li><a target="_blank" rel="noreferrer" href="https://supabase.com/">Supabase</a></li>
+            <ul>
+                <li>Authentication</li>
             </ul>
             <li><a target="_blank" rel="noreferrer" href="https://reactjs.org/">React.js</a></li>
             <li>Packages:</li>
