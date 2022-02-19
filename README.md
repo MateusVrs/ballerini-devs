@@ -36,7 +36,6 @@
                 <li><a target="_blank" rel="noreferrer" href="https://www.npmjs.com/package/emoji-picker-react">Emoji
                         Picker React</a></li>
                 <li><a target="_blank" rel="noreferrer" href="https://swiperjs.com/">Swiper</a></li>
-                <li><a target="_blank" rel="noreferrer" href="https://www.npmjs.com/package/uuid">UUID</a></li>
             </ul>
             <li><a target="_blank" rel="noreferrer" href="https://www.typescriptlang.org/">Typescript</a></li>
             <li><a target="_blank" rel="noreferrer" href="https://sass-lang.com/">Sass</a></li>
