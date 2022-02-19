@@ -71,9 +71,7 @@ export function DevModalForm() {
 
             <div className="input-container">
                 <label className='avatar-label' htmlFor="avatar">Avatar:
-                    <div className="input-container" style={{
-                        backgroundColor: devInfo.photo ? '#27AE60' : '#DBB801'
-                    }}>
+                    <div className="input-container" style={{ backgroundColor: devInfo.photo ? '#27AE60' : '#DBB801' }}>
                         {devInfo.photo ? 'Arquivo selecionado' : 'Selecione um arquivo'}
                         <input accept="image/png, image/jpg, image/jpeg" type="file" id="avatar" name="avatar"
                             onChange={(event) => {
